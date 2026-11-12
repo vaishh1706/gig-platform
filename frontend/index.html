@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Co-op Gigs | Cooperative Gig Services Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <aside class="side">
+    <div class="brand">
+      <h1>Co-op Gigs</h1>
+      <p>Skilled workers and households, one cooperative network.</p>
+    </div>
+    <nav id="nav">
+      <button data-view="find" class="active">Find a worker</button>
+      <button data-view="board" data-role="worker">Job board</button>
+      <button data-view="post" data-role="customer">Post a job</button>
+      <button data-view="mine" data-auth>My jobs</button>
+      <button data-view="pool" data-role="worker">Co-op pool</button>
+      <button data-view="account">Account</button>
+    </nav>
+    <div class="who" id="who">Not logged in</div>
+  </aside>
+
+  <main>
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <section id="view-find" class="view">
+      <h2>Find a worker</h2>
+      <p class="lead">Tell us what you need. Workers are ranked by trade, skills, location and rate.</p>
+      <form id="find-form" class="row">
+        <label>Trade <select name="category" class="cat-select" required></select></label>
+        <label>Skills needed <input name="skills" placeholder="wiring, leak repair" /></label>
+        <label>City <input name="city" placeholder="hyderabad" /></label>
+        <label>Max rate per hour (₹) <input name="budget" type="number" min="0" placeholder="400" /></label>
+        <button class="primary">Find workers</button>
+      </form>
+      <div id="find-results" class="list"></div>
+    </section>
+
+    <section id="view-board" class="view" hidden>
+      <h2>Job board</h2>
+      <p class="lead">Open jobs from customers. Apply and the customer picks a worker.</p>
+      <form id="board-form" class="row">
+        <label>Trade <select name="category" class="cat-select cat-any"></select></label>
+        <label>City <input name="city" placeholder="any city" /></label>
+        <button class="primary">Filter</button>
+      </form>
+      <div id="board-list" class="list"></div>
+    </section>
+
+    <section id="view-post" class="view" hidden>
+      <h2>Post a job</h2>
+      <p class="lead">Describe the work and workers in your area can apply.</p>
+      <form id="post-form" class="stack">
+        <label>What needs doing? <input name="title" required placeholder="Fix leaking kitchen tap" /></label>
+        <label>Details <textarea name="description" rows="3" placeholder="Anything the worker should know"></textarea></label>
+        <div class="row">
+          <label>Trade <select name="category" class="cat-select" required></select></label>
+          <label>City <input name="city" required placeholder="hyderabad" /></label>
+          <label>Max rate per hour (₹) <input name="budget" type="number" min="0" required /></label>
+        </div>
+        <button class="primary">Post job</button>
+      </form>
+    </section>
+
+    <section id="view-mine" class="view" hidden>
+      <h2>My jobs</h2>
+      <div id="mine-list" class="list"></div>
+    </section>
+
+    <section id="view-pool" class="view" hidden>
+      <h2>Co-op pool</h2>
+      <p class="lead">Jobs that fellow workers could not take on. Claim one to keep the work in the cooperative.</p>
+      <div id="pool-list" class="list"></div>
+    </section>
+
+    <section id="view-account" class="view" hidden>
+      <div id="account-out">
+        <h2>Account</h2>
+        <div class="split">
+          <form id="login-form" class="stack">
+            <h3>Log in</h3>
+            <label>Email <input name="email" type="email" required /></label>
+            <label>Password <input name="password" type="password" required /></label>
+            <button class="primary">Log in</button>
+          </form>
+          <form id="register-form" class="stack">
+            <h3>Create an account</h3>
+            <label>I am a
+              <select name="role" id="reg-role">
+                <option value="customer">Customer looking for a worker</option>
+                <option value="worker">Worker offering services</option>
+              </select>
+            </label>
+            <label>Full name <input name="name" required /></label>
+            <label>Email <input name="email" type="email" required /></label>
+            <label>Password (6+ characters) <input name="password" type="password" minlength="6" required /></label>
+            <label>City <input name="city" placeholder="hyderabad" /></label>
+            <label>Phone <input name="phone" /></label>
+            <div id="worker-fields" hidden class="stack">
+              <label>Trade <select name="category" class="cat-select"></select></label>
+              <label>Skills <input name="skills" placeholder="wiring, inverter, fan repair" /></label>
+              <label>Rate per hour (₹) <input name="ratePerHour" type="number" min="0" /></label>
+              <label>About you <textarea name="bio" rows="2"></textarea></label>
+            </div>
+            <button class="primary">Create account</button>
+          </form>
+        </div>
+      </div>
+      <div id="account-in" hidden>
+        <h2>Account</h2>
+        <div id="profile" class="card"></div>
+        <button id="logout" class="ghost">Log out</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
